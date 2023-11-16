@@ -1,56 +1,24 @@
-<div class="text-center mb-4">
-    <img
-      src="assets/logo.png"
-      alt="logo"
-      loading="lazy"
-      width="70%"
-    />
-    <h5  style="padding-top: 20px;">Pivot Table</h5>
-  </div>
-   
-  <form class="form-signin" (ngSubmit)="login()">
-    <div class="form-label-group">
-  
-      <input
-        type="text"
-        id="userName"
-        name="username"
-        (ngModel)="username"
-        class="form-control"
-        placeholder="Username"
-        required
-        autofocus
-      />
-      <label for="userName">User</label>
+<h2>Login</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
     </div>
-    <div class="form-label-group">
-      <input
-        type="password"
-        id="inputPassword"
-        name="password"
-        (ngModel)="password"
-        class="form-control"
-        placeholder="Password"
-        required
-      />
-      <label for="inputPassword">Pass</label>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
     </div>
-  
-    <!-- <div class="checkbox mb-3 text-danger" *ngIf="loginError">
-      Login failed. Please try again.
-    </div> -->
-    <div style="text-align: center;">
-      <button
-      type="submit"
-      class="btn btn-md btn-success btn-block"
-      [disabled]="busy"
-    >
-      Enter
-    </button>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Login
+        </button>
+        <a routerLink="/register" class="btn btn-link">Register</a>
     </div>
-  
-  
-    
-  </form>
-  
-  
+</form>

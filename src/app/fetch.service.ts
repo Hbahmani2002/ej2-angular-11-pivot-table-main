@@ -16,6 +16,7 @@ interface LoginResult {
   providedIn: 'root'
 })
 export class FetchService {
+
   private timer: Subscription | null = null;
   private _user = new BehaviorSubject<ApplicationUser | null>(null);
   user$ = this._user.asObservable();
@@ -34,6 +35,7 @@ login(username: string, password: string) {
           role: x.role,
           originalUserName: x.originalUserName,
         });
+        
         this.setLocalStorage(x);
         this.startTokenTimer();
         return x;

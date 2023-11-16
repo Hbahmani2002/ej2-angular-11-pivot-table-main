@@ -3,68 +3,63 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FetchService } from '../fetch.service';
 import { finalize } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  busy = false;
-  username = '';
-  password = '';
-  loginError = false;
-  showSpinner=false;
-  private subscription: Subscription | null = null;
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private authService: FetchService
+      private formBuilder: FormBuilder,
+      private route: ActivatedRoute,
+      private router: Router,
+      private authenticationService: FetchService,
+     
   ) {
-
+      // redirect to home if already logged in
+      if (this.authenticationService.user$) { 
+          this.router.navigate(['/']);
+      }
   }
 
-  ngOnInit(): void {
-    this.subscription = this.authService.user$.subscribe((x) => {
-      if (this.route.snapshot.url[0].path === 'login') {
-        const accessToken = localStorage.getItem('access_token');
-        const refreshToken = localStorage.getItem('refresh_token');
-        if (x && accessToken && refreshToken) {
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
-          this.router.navigate([returnUrl]);
-        }
-      } // optional touch-up: if a tab shows login page, then refresh the page to reduce duplicate login
-    });
+  ngOnInit() {
+      this.loginForm = this.formBuilder.group({
+          username: ['', Validators.required],
+          password: ['', Validators.required]
+      });
+
+      // get return url from route parameters or default to '/'
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  login() {
-    if (!this.username || !this.password) {
-      return;
-    }
-    // this.username='my'
-    // this.password='AAECAwQFBgcICQoLDA0ODwABAgMEBQYHCAkKCwwNDg94Tkvelcio+LBjGPrNuMaD'
-    this.busy = true;
-    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
+  // convenience getter for easy access to form fields
+  get f() { return this.loginForm.controls; }
 
-    this.authService
-      .login(this.username, this.password)
-      .pipe(finalize(() => (this.busy = false)))
-      .subscribe(
-        () => {
-          this.router.navigate(['/main']);
-         
-        },
-        () => {
-         
-          this.loginError = true;
-         
-       
-        }
-      );
-  }
+  onSubmit() {
+      this.submitted = true;
 
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+      // stop here if form is invalid
+      if (this.loginForm.invalid) {
+          return;
+      }
+
+      this.loading = true;
+      this.authenticationService.login(this.f.username.value, this.f.password.value)
+          .pipe(first())
+          .subscribe(
+              data => {
+                  this.router.navigate([this.returnUrl]);
+              },
+              error => {
+                  
+                  this.loading = false;
+              });
   }
 }

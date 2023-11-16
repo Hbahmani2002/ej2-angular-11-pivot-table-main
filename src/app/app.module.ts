@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DemoApisComponent } from './demo-apis/demo-apis.component';
 import { HomeComponent } from './home/home.component';
 import { CoreModule } from './core/core.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { CoreModule } from './core/core.module';
     HomeComponent
   ],
   imports: [
-    BrowserModule, PivotViewModule ,HttpClientModule, AppRoutingModule,CoreModule
+    BrowserModule, PivotViewModule ,HttpClientModule, AppRoutingModule,CoreModule, ReactiveFormsModule,
   ],
   providers: [ConditionalFormattingService],
   bootstrap: [AppComponent]
