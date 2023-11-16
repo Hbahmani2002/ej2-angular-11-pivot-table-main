@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DemoApisComponent } from './demo-apis/demo-apis.component';
 import { HomeComponent } from './home/home.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { HomeComponent } from './home/home.component';
     HomeComponent
   ],
   imports: [
-    BrowserModule, PivotViewModule ,HttpClientModule, AppRoutingModule
+    BrowserModule, PivotViewModule ,HttpClientModule, AppRoutingModule,CoreModule
   ],
   providers: [ConditionalFormattingService],
   bootstrap: [AppComponent]
