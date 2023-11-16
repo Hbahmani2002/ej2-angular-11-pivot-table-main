@@ -26,7 +26,7 @@ export class FetchService {
 }
 login(username: string, password: string) {
   return this.http
-    .post<LoginResult>('https://localhost:7237/api/Pivot/PivotShow/login', { username, password })
+    .post<LoginResult>('https://localhost:7237/api/user/login', { username, password })
     .pipe(
       map((x) => {
         this._user.next({
@@ -42,7 +42,7 @@ login(username: string, password: string) {
 }
 logout() {
   this.http
-    .post<unknown>('https://localhost:7237/api/Pivot/PivotShow/logout', {})
+    .post<unknown>('https://localhost:7237/api/user/logout', {})
     .pipe(
       finalize(() => {
         this.clearLocalStorage();
