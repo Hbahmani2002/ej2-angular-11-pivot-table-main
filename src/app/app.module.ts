@@ -5,6 +5,7 @@ import { PivotViewModule, ConditionalFormattingService } from '@syncfusion/ej2-a
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import { LoginComponent } from './login/login.component';
     LoginComponent
   ],
   imports: [
-    BrowserModule, PivotViewModule ,HttpClientModule
+    BrowserModule, PivotViewModule ,HttpClientModule, AppRoutingModule
   ],
   providers: [ConditionalFormattingService],
   bootstrap: [AppComponent]
