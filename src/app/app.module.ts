@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DemoApisComponent } from './demo-apis/demo-apis.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    DemoApisComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule, PivotViewModule ,HttpClientModule, AppRoutingModule

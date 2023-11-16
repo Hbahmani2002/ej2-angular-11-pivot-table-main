@@ -1,78 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { IDataOptions, IDataSet } from '@syncfusion/ej2-angular-pivotview';
-import { GridSettings } from '@syncfusion/ej2-pivotview/src/pivotview/model/gridsettings';
+import { Component } from '@angular/core';
 import { FetchService } from './fetch.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-root',
+  template: `
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+        <a class="navbar-brand" routerLink="">YBBYS</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         
+          <div class="form-inline">
+            <button
+              class="btn btn-outline-success my-2 my-sm-0"
+              type="button"
+              *ngIf="authService.user$ | async as user"
+              (click)="logout()"
+            >
+              Exit
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="d-flex flex-column flex-grow-1 h-100 w-100">
+      <router-outlet></router-outlet>
+    </main>
+  `,
+  styles: [],
 })
-export class AppComponent implements OnInit {
-  public dataSourceSettings: IDataOptions;
-  public gridSettings: GridSettings;
+export class AppComponent {
+  showSpinner = false;
+  constructor(public authService: FetchService) {
+   
+  }
 
-public dataJson: IDataSet[];
-constructor(public fetch: FetchService) {
+  ngOnInit(): void {}
+
+  logout() {
+    this.authService.logout();
+  }
 }
-  getPivotData(): IDataSet[] {
-       let pivotData: IDataSet[] ; //[
-  //   { 'Sold': 31, 'Amount': 52824, 'Country': 'France', 'Products': 'Mountain Bikes', 'Year': 'FY 2015', 'Quarter': 'Q1' },
-  //   { 'Sold': 51, 'Amount': 86904, 'Country': 'France', 'Products': 'Mountain Bikes', 'Year': 'FY 2015', 'Quarter': 'Q2' },
-  //   { 'Sold': 90, 'Amount': 153360, 'Country': 'France', 'Products': 'Mountain Bikes', 'Year': 'FY 2015', 'Quarter': 'Q3' },
-  //   { 'Sold': 25, 'Amount': 42600, 'Country': 'France', 'Products': 'Mountain Bikes', 'Year': 'FY 2015', 'Quarter': 'Q4' },
-  //   { 'Sold': 27, 'Amount': 46008, 'Country': 'France', 'Products': 'Mountain Bikes', 'Year': 'FY 2016', 'Quarter': 'Q1' }];
-  pivotData=this.dataJson;
-    return pivotData;
-  }
- async ngOnInit(): Promise<any>{
-  const data = await this.fetch.getTable().pipe().toPromise();
-    this.dataJson=JSON.parse(JSON.stringify(data));
-  
-
-  
-
- 
- 
-      this.gridSettings = {
-          columnWidth: 140
-        } as GridSettings;
-        this.dataSourceSettings = {
-            enableSorting: true,
-            columns: [{ name: 'year' }, { name: 'quarter' }],
-            values: [{ name: 'sold', caption: 'Units Sold' }, { name: 'amount', caption: 'Sold Amount' }],
-            dataSource: this.getPivotData(),
-            rows: [{ name: 'country' }, { name: 'products' }],
-            formatSettings: [{ name: 'amount', format: 'C0' }],
-            expandAll: false,
-            filters: [],
-            conditionalFormatSettings: [
-              {
-                value1: 729,
-                value2: 50,
-                conditions: 'Between',
-                style: {
-                  backgroundColor: '#80cbc4',
-                  color: 'black',
-                  fontFamily: 'Tahoma',
-                  fontSize: '12px'
-                }
-              },
-              {
-                value1: 600,
-                value2: 25,
-                conditions: 'Between',
-                style: {
-                backgroundColor: '#f48fb1',
-                color: 'black',
-                fontFamily: 'Tahoma',
-                fontSize: '12px'
-                }
-              }
-            ] 
-          };
-  
-    }
-
- };
-  

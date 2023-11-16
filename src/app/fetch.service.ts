@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject,Observable,of, Subscription } from 'rxjs';
 import { map, tap, delay, finalize } from 'rxjs/operators';
 import { ApplicationUser } from './Models/ApplicationUser';
+import { Router } from '@angular/router';
 interface LoginResult {
   username: string;
   role: string;
@@ -18,7 +19,7 @@ export class FetchService {
   private timer: Subscription | null = null;
   private _user = new BehaviorSubject<ApplicationUser | null>(null);
   user$ = this._user.asObservable();
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private router: Router) {}
   public getTable(): Observable<any> {
     const url = 'https://localhost:7237/api/Pivot/PivotShow';
     return this.http.get<any>(url);
@@ -39,6 +40,23 @@ login(username: string, password: string) {
       })
     );
 }
+logout() {
+  this.http
+    .post<unknown>('https://localhost:7237/api/Pivot/PivotShow/logout', {})
+    .pipe(
+      finalize(() => {
+        this.clearLocalStorage();
+        this._user.next(null);
+        this.stopTokenTimer();
+        this.router.navigate(['login']);
+      })
+    )
+    .subscribe();
+}
+private stopTokenTimer() {
+  this.timer?.unsubscribe();
+}
+
 private getTokenRemainingTime() {
   const accessToken = localStorage.getItem('access_token');
   if (!accessToken) {

@@ -5,11 +5,10 @@
       loading="lazy"
       width="70%"
     />
-    <h5  style="padding-top: 20px;">Yoğun Bakım Bilgi Yönetim Sistemi</h5>
+    <h5  style="padding-top: 20px;">Pivot Table</h5>
   </div>
    
   <form class="form-signin" (ngSubmit)="login()">
-    <app-sppiner *ngIf="showSpinner"></app-sppiner> 
     <div class="form-label-group">
   
       <input
@@ -22,7 +21,7 @@
         required
         autofocus
       />
-      <label for="userName">Kullanici</label>
+      <label for="userName">User</label>
     </div>
     <div class="form-label-group">
       <input
@@ -34,7 +33,7 @@
         placeholder="Password"
         required
       />
-      <label for="inputPassword">Şifre</label>
+      <label for="inputPassword">Pass</label>
     </div>
   
     <!-- <div class="checkbox mb-3 text-danger" *ngIf="loginError">
@@ -46,7 +45,7 @@
       class="btn btn-md btn-success btn-block"
       [disabled]="busy"
     >
-      Giriş Yap
+      Enter
     </button>
     </div>
   

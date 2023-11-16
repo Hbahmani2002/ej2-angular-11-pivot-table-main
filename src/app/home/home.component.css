@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+.left-side {
+  border-right: 1px solid gray;
+}
+
+.left-side li{
+  padding: 24px;
+}
+
+.left-side li:hover {
+  background-color: #4CAF50;
+  transition: .3s;
+}
+
+.left-side a li:hover{
+  color: white;
+}
+
+.left-side a{
+  text-decoration: none;
+  color: black;
+}
+
+.right-side {
+  padding-top: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica', Arial, Lucida Grande, sans-serif !important;
+}
+
+.button {
+  border: none;
+  border-radius: 2px;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: block;
+  font-size: 13px;
+}
+
+.button1 {
+  background-color: #4CAF50;  
+}
+
+.button2 {
+  background-color: #008CBA;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}
+
+#sidebar {
+  color: #fff;
+  transition: all 0.3s;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+  border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+  color: #fff;
+  padding: 10px;
+}
+
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+  text-decoration: none;
+  color: black
+}
+#sidebar ul li a:hover {
+  color: green;
+  background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+  color: #fff;
+  background: #6d7fcc;
+}
+
+ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+}

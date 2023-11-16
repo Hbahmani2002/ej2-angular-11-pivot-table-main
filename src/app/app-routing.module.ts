@@ -3,16 +3,18 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth-guard';
+import { DemoApisComponent } from './demo-apis/demo-apis.component';
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: AppComponent,
+    component: HomeComponent,
     canActivate: [AuthGuard],
   },
   { path: 'login', component: LoginComponent },
-  { path: 'demo-apis',  canActivate: [AuthGuard] },
+  { path: 'demo-apis', component: DemoApisComponent, canActivate: [AuthGuard] },
   
   { path: '**', redirectTo: '' },
 ];
@@ -20,7 +22,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
-  ]
+    CommonModule,RouterModule.forRoot(routes)
+  ],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
