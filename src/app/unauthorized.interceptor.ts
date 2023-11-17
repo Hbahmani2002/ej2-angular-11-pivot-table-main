@@ -22,7 +22,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err) => {
         if (err.status === 401) {
-          this.authService.clearLocalStorage();
+      
           this.router.navigate(['login'], {
             queryParams: { returnUrl: this.router.routerState.snapshot.url },
           });

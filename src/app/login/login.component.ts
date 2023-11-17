@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit,ViewChild,ElementRef  } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FetchService } from '../fetch.service';
 import { finalize } from 'rxjs/operators';
@@ -11,6 +11,9 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+    @ViewChild('userInput', { static: false }) userInput: ElementRef;
+    @ViewChild('passInput', { static: false }) passInput: ElementRef;
+    
   loginForm: FormGroup;
   loading = false;
   submitted = false;
@@ -30,11 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.loginForm = this.formBuilder.group({
-          username: ['', Validators.required],
-          password: ['', Validators.required]
-      });
-
+     
       // get return url from route parameters or default to '/'
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
@@ -45,13 +44,11 @@ export class LoginComponent implements OnInit {
   onSubmit() {
       this.submitted = true;
 
-      // stop here if form is invalid
-      if (this.loginForm.invalid) {
-          return;
-      }
-
+     
+      const inputValue0 = this.userInput.nativeElement.value;
+      const inputValue1 = this.passInput.nativeElement.value;
       this.loading = true;
-      this.authenticationService.login(this.f.username.value, this.f.password.value)
+      this.authenticationService.login(inputValue0, inputValue1)
           .pipe(first())
           .subscribe(
               data => {

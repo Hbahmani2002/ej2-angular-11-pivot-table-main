@@ -1,93 +1,70 @@
-:host{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+	/* Coded with love by Mutiullah Samim */
+  body,
+  html {
+    margin: 0;
+    padding: 0;
     height: 100%;
+    background: #60a3bc !important;
   }
-  
-  .form-signin {
-    width: 100%;
-    max-width: 420px;
-    padding: 15px;
-  }
-  
-  .form-label-group {
+  .user_card {
+    height: 400px;
+    width: 350px;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: #f39c12;
     position: relative;
-    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+
   }
-  
-  .form-label-group > input,
-  .form-label-group > label {
-    height: 3.125rem;
-    padding: 0.75rem;
-  }
-  
-  .form-label-group > label {
+  .brand_logo_container {
     position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
+    height: 170px;
+    width: 170px;
+    top: -75px;
+    border-radius: 50%;
+    background: #60a3bc;
+    padding: 10px;
+    text-align: center;
+  }
+  .brand_logo {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+  .form_container {
+    margin-top: 100px;
+  }
+  .login_btn {
     width: 100%;
-    margin-bottom: 0; /* Override default `<label>` margin */
-    line-height: 1.5;
-    color: #495057;
-    pointer-events: none;
-    cursor: text; /* Match the input under the label */
-    border: 1px solid transparent;
-    border-radius: 0.25rem;
-    transition: all 0.1s ease-in-out;
+    background: #c0392b !important;
+    color: white !important;
   }
-  
-  .form-label-group input::-webkit-input-placeholder {
-    color: transparent;
+  .login_btn:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
   }
-  
-  .form-label-group input:-ms-input-placeholder {
-    color: transparent;
+  .login_container {
+    padding: 0 2rem;
   }
-  
-  .form-label-group input::-ms-input-placeholder {
-    color: transparent;
+  .input-group-text {
+    background: #c0392b !important;
+    color: white !important;
+    border: 0 !important;
+    border-radius: 0.25rem 0 0 0.25rem !important;
   }
-  
-  .form-label-group input::-moz-placeholder {
-    color: transparent;
+  .input_user,
+  .input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
   }
-  
-  .form-label-group input::placeholder {
-    color: transparent;
+  .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #c0392b !important;
   }
-  
-  .form-label-group input:not(:placeholder-shown) {
-    padding-top: 1.25rem;
-    padding-bottom: 0.25rem;
-  }
-  
-  .form-label-group input:not(:placeholder-shown) ~ label {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-    font-size: 12px;
-    color: #777;
-  }
-  
-  /* Fallback for Edge */
-  @supports (-ms-ime-align: auto) {
-    .form-label-group > label {
-      display: none;
-    }
-    .form-label-group input::-ms-input-placeholder {
-      color: #777;
-    }
-  }
-  
-  /* Fallback for IE */
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    .form-label-group > label {
-      display: none;
-    }
-    .form-label-group input:-ms-input-placeholder {
-      color: #777;
-    }
-  }
-  

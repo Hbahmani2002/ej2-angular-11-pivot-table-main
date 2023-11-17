@@ -10,6 +10,7 @@ import { DemoApisComponent } from './demo-apis/demo-apis.component';
 import { HomeComponent } from './home/home.component';
 import { CoreModule } from './core/core.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent
   ],
   imports: [
-    BrowserModule, PivotViewModule ,HttpClientModule, AppRoutingModule,CoreModule, ReactiveFormsModule,
+    BrowserModule, PivotViewModule ,HttpClientModule, AppRoutingModule,CoreModule, ReactiveFormsModule,FormsModule
   ],
   providers: [ConditionalFormattingService],
   bootstrap: [AppComponent]

@@ -6,7 +6,7 @@ import { FetchService } from './fetch.service';
   template: `
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-        <a class="navbar-brand" routerLink="">YBBYS</a>
+        <a class="navbar-brand" routerLink="">Pivot Table</a>
         <button
           class="navbar-toggler"
           type="button"

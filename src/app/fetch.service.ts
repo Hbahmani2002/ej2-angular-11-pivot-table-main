@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders   } from '@angular/common/http';
 import { BehaviorSubject,Observable,of, Subscription } from 'rxjs';
 import { map, tap, delay, finalize } from 'rxjs/operators';
 import { ApplicationUser } from './Models/ApplicationUser';
@@ -16,14 +16,23 @@ interface LoginResult {
   providedIn: 'root'
 })
 export class FetchService {
-
+  private token: string = '';
   private timer: Subscription | null = null;
   private _user = new BehaviorSubject<ApplicationUser | null>(null);
   user$ = this._user.asObservable();
   constructor(private http: HttpClient,private router: Router) {}
-  public getTable(): Observable<any> {
+   getTable(): Observable<any> {
     const url = 'https://localhost:7237/api/Pivot/PivotShow';
-    return this.http.get<any>(url);
+    const reqHeader = new HttpHeaders({ 
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.token}`
+   });
+
+   const options = {
+    headers: reqHeader,
+  };
+    return this.http.get(url,options);
+    
 }
 login(username: string, password: string) {
   return this.http
@@ -35,19 +44,20 @@ login(username: string, password: string) {
           role: x.role,
           originalUserName: x.originalUserName,
         });
-        
-        this.setLocalStorage(x);
+        this.token=x.accessToken;
+       
         this.startTokenTimer();
         return x;
       })
     );
 }
+
 logout() {
   this.http
     .post<unknown>('https://localhost:7237/api/user/logout', {})
     .pipe(
       finalize(() => {
-        this.clearLocalStorage();
+       
         this._user.next(null);
         this.stopTokenTimer();
         this.router.navigate(['login']);
@@ -69,20 +79,11 @@ private getTokenRemainingTime() {
   return expires.getTime() - Date.now();
 }
 
-setLocalStorage(x: LoginResult) {
-  localStorage.setItem('access_token', x.accessToken);
-  localStorage.setItem('refresh_token', x.refreshToken);
-  localStorage.setItem('login-event', 'login' + Math.random());
-}
-clearLocalStorage() {
-  localStorage.removeItem('access_token');
-  localStorage.removeItem('refresh_token');
-  localStorage.setItem('logout-event', 'logout' + Math.random());
-}
+
 refreshToken(): Observable<LoginResult | null> {
   const refreshToken = localStorage.getItem('refresh_token');
   if (!refreshToken) {
-    this.clearLocalStorage();
+   
     return of(null);
   }
 }
