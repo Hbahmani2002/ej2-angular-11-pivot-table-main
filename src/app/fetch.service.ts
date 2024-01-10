@@ -4,6 +4,7 @@ import { BehaviorSubject,Observable,of, Subscription } from 'rxjs';
 import { map, tap, delay, finalize } from 'rxjs/operators';
 import { ApplicationUser } from './Models/ApplicationUser';
 import { Router } from '@angular/router';
+import 'tslib';
 interface LoginResult {
   username: string;
   role: string;
@@ -38,7 +39,7 @@ login(username: string, password: string) {
   return this.http
     .post<LoginResult>('https://localhost:7237/api/user/login', { username, password })
     .pipe(
-      map((x) => {
+      map((x: LoginResult) => {
         this._user.next({
           username: x.username,
           role: x.role,
